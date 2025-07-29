@@ -1,0 +1,12 @@
+[log]
+path = '/www/wwwlogs/python/callback_api/gunicorn_error.log'
+level = 'debug'
+format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+[proxy]
+baidu='https://api2.hnzzzsw.com/baidu'
+douyin = 'https://api2.hnzzzsw.com/douyin'
+
+[retry]
+max_retry = 3
+retry_delay = 1
