@@ -32,6 +32,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
+    { name = "tenacity" },
     { name = "tk-base-utils" },
 ]
 
@@ -39,7 +40,8 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.116.1" },
     { name = "httpx", specifier = ">=0.28.1" },
-    { name = "tk-base-utils", specifier = ">=0.1.4" },
+    { name = "tenacity", specifier = ">=9.1.2" },
+    { name = "tk-base-utils", specifier = ">=0.2.0" },
 ]
 
 [[package]]
@@ -191,12 +193,21 @@ wheels = [
 ]
 
 [[package]]
-name = "tk-base-utils"
-version = "0.1.4"
+name = "tenacity"
+version = "9.1.2"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
-sdist = { url = "https://mirrors.aliyun.com/pypi/packages/f9/13/f99d0f18a3bac33987eb6ed54956fffafa8010c08250ab81a688fee9876a/tk_base_utils-0.1.4.tar.gz", hash = "sha256:99dc23e9df5e2ba8ee25720ee72d58f0008d0af10f7aff13a524c5875882d9fd" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/0a/d4/2b0cd0fe285e14b36db076e78c93766ff1d529d70408bd1d2a5a84f1d929/tenacity-9.1.2.tar.gz", hash = "sha256:1169d376c297e7de388d18b4481760d478b0e99a777cad3a9c86e556f4b697cb" }
 wheels = [
-    { url = "https://mirrors.aliyun.com/pypi/packages/2b/c6/a5d4bdddbd542f98e6afb99b1cb1105cea0537a7a596ad3f83b0046e6f63/tk_base_utils-0.1.4-py3-none-any.whl", hash = "sha256:938afcfc579b18599351edca16d9e5bfa93b3b2ddff335ef682927d50e16c60a" },
+    { url = "https://mirrors.aliyun.com/pypi/packages/e5/30/643397144bfbfec6f6ef821f36f33e57d35946c44a2352d3c9f0ae847619/tenacity-9.1.2-py3-none-any.whl", hash = "sha256:f77bf36710d8b73a50b2dd155c97b870017ad21afe6ab300326b0371b3b05138" },
+]
+
+[[package]]
+name = "tk-base-utils"
+version = "0.2.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/36/ba/efc5b7f15275517aa50ddaaf0a5ea1ea6a6386ccde92a3f02feedc9ac402/tk_base_utils-0.2.0.tar.gz", hash = "sha256:b736563715a2b82a20c24b3ff5bf366c81cf316c00adee37c27082af8a919558" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/c1/69/ce37c5206efb2fa4c931ba2e8f74d38d6e4fb7c7b20864929844579db1e5/tk_base_utils-0.2.0-py3-none-any.whl", hash = "sha256:b568ac3f313d9898c5dc481935cd7826f06da2d5d76a3269945604b72e7e6419" },
 ]
 
 [[package]]

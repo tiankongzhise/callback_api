@@ -1,6 +1,7 @@
-from .core import ProxyCore
+from .core import proxy_router,reload_proxy_settings
 
 
 __all__ = [
-    "ProxyCore"
+    "proxy_router",
+    "reload_proxy_settings"
 ]

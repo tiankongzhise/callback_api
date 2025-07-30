@@ -1,6 +1,8 @@
 from app import proxy
 from app.log import create_logger, reload_logger_level
-from app.proxy import ProxyCore
+from app.proxy import proxy_router,reload_proxy_settings
+import asyncio
+
 def main():
     logger = create_logger(__name__)
     logger.info("启动回调 API 服务")
@@ -14,7 +16,8 @@ def main():
                 cmd = input().strip().lower()
                 if cmd == "reload":
                     reload_logger_level(logger)
-                    logger.info("日志级别已重载")
+                    reload_proxy_settings()
+                    logger.info("日志级别和代理配置已重载")
                 elif cmd == "exit":
                     logger.info("接收到退出指令，准备退出程序")
                     break
@@ -39,8 +42,11 @@ def main():
         # 主线程工作逻辑（示例）
         while not stop_event.is_set():
             # 这里是主程序的实际业务逻辑
-            proxy_core = ProxyCore()
-            proxy_core.run()
+            # proxy_core = ProxyCore()
+            # proxy_core.run()
+            from app.proxy.core import test_proxy_reload
+            asyncio.run(test_proxy_reload())
+            
             logger.debug("主程序正常运行中...")
             
             # 模拟工作，实际替换为您的业务代码
