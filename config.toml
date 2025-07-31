@@ -4,8 +4,9 @@ level = 'info'
 format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
 [proxy]
-baidu='https://api2.hnzzzsw.com/baidu'
-douyin = 'https://api2.hnzzzsw.com/douyin'
+    [proxy.oauth]
+    baidu='https://api2.hnzzzsw.com/oauth/baidu'
+    douyin = 'https://api2.hnzzzsw.com/oauth/douyin'
 
 
 [retry]

@@ -28,16 +28,33 @@ def set_logger():
     logging.basicConfig(
         level=level_mapping[config["log"]["level"]],
         format=config["log"]["format"],
-        # handlers=[
-        #     logging.FileHandler(config["log"]["path"])
-        # ]
+        handlers=[
+            logging.FileHandler(config["log"]["path"])
+        ]
         )
+
+# def reload_logger_level(logger: logging.Logger):
+#     config = load_toml("config.toml")
+#     level_mapping = get_level_mapping()
+#     logger_level = level_mapping[config["log"]["level"]]
+#     for logger_name,logger in logger_center.items():
+#         logger.setLevel(logger_level)
+#         logger.warning(f"{logger_name} 日志级别已更改为: {logger_level}")
 
 def reload_logger_level(logger: logging.Logger):
     config = load_toml("config.toml")
     level_mapping = get_level_mapping()
     logger_level = level_mapping[config["log"]["level"]]
-    for logger_name,logger in logger_center.items():
+    
+    # 更新root logger级别
+    logging.getLogger().setLevel(logger_level)
+    
+    # 更新所有handler级别
+    for handler in logging.getLogger().handlers:
+        handler.setLevel(logger_level)
+    
+    # 更新注册的logger级别
+    for logger_name, logger in logger_center.items():
         logger.setLevel(logger_level)
         logger.warning(f"{logger_name} 日志级别已更改为: {logger_level}")
 

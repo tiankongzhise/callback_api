@@ -1,8 +1,9 @@
 from app.log import create_logger, reload_logger_level
-from app.proxy import proxy_router,reload_proxy_settings
+from app.proxy import reload_proxy_settings,proxy_router
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 logger = create_logger(__name__)
 
@@ -12,6 +13,20 @@ app = FastAPI(
     version="1.0.0",
 )
 
+origins = [
+    "http://api2.hnzzzsw.com",
+    "https://api2.hnzzzsw.com",
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.exception_handler(Exception)
 async def generic_exception_handler(request: Request, exc: Exception):

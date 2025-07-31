@@ -24,15 +24,21 @@ proxy_router = APIRouter()
     retry=retry_if_exception_type(httpx.RequestError),
     before_sleep=lambda retry_state: logger.warning(f"Retrying request, attempt {retry_state.attempt_number}")
 )
-async def forward_request(channel: str, request: Request) -> Response:
-    logger.info(f'forward is running,channel:{channel},request:{request}')
-    base_url = proxy_settings['proxy'].get(channel)
-    if not base_url:
-        logger.error(f"Unknown channel: {channel}")
-        return Response(content=f"Unknown channel: {channel}", status_code=400)
+async def forward_request(router: str, api_path: str, request: Request) -> Response:
+    logger.info(f'forward is running,router:{router},api_path:{api_path},request:{request}')
+    router_info = proxy_settings['proxy'].get(router,{})
+    api_url = router_info.get(api_path)
+    if not router_info:
+        logger.error(f"Unknown router: {router}")
+        logger.debug(f"Available routers: {proxy_settings['proxy'].keys()}")
+        return Response(content=f"Unknown router: {router}", status_code=400)
+    if not api_url:
+        logger.error(f"Unknown api_path: {api_path}")
+        logger.debug(f"Available api_paths: {router_info.keys()}")
+        return Response(content=f"Unknown api_path: {api_path}", status_code=400)
 
     async with httpx.AsyncClient() as client:
-        url = f"{base_url}{request.url.path}"
+        url = f"{api_url}"
         headers = dict(request.headers)
         headers.pop("host", None)
 
@@ -62,10 +68,6 @@ async def forward_request(channel: str, request: Request) -> Response:
             raise e
         
 
-@proxy_router.api_route("/{channel}/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"])
-async def proxy(channel: str, path: str, request: Request) -> Response:
-    logger.info(f'proxy转发记录,来源:{request.client.host},channel:{channel},path:{path},request:{request}')
-    return await forward_request(channel, request)
 
 
 
